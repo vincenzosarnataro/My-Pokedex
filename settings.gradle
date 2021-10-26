@@ -10,3 +10,5 @@ rootProject.name = "My Pokedex"
 include ':app'
 include ':data'
 include ':remotedatasource'
+include ':dbdatasource'
+include ':domain'
