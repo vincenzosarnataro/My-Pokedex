@@ -1,0 +1,78 @@
+ext {
+    //Android
+    androidMinSdkVersion = 23
+    androidTargetSdkVersion = 31
+    androidCompileSdkVersion = 31
+
+    //Libraries
+    kotlinVersion = '1.5.31'
+    retrofitVersion = "2.9.0"
+    androidCoreVersion ="1.6.0"
+    moshiVersion="1.12.0"
+    retrofitMoshiConverter="2.4.0"
+    koinVersion= "3.1.2"
+    coroutinesVersion="1.3.9"
+    okHttpVersion="4.9.2"
+
+    //Testing
+
+
+    domainDependencies = [
+
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}"
+    ]
+
+    domainTestDependencies = [
+
+    ]
+
+    presentationDependencies = [
+
+    ]
+
+    presentationTestDependencies = [
+
+    ]
+
+    dataDependencies = [
+
+    ]
+
+    dataTestDependencies = [
+
+    ]
+
+    cacheDependencies = [
+
+    ]
+
+    cacheTestDependencies = [
+
+    ]
+
+    remoteDependencies = [
+            retrofit: "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            androidCore:"androidx.core:core-ktx:${androidCoreVersion}",
+            moshi:"com.squareup.moshi:moshi-kotlin:${moshiVersion}",
+            moshiConverter:"com.squareup.retrofit2:converter-moshi:${retrofitMoshiConverter}",
+            koin:"io.insert-koin:koin-core:${koinVersion}",
+            koinAndroid:"io.insert-koin:koin-android:${koinVersion}",
+            coroutines:"org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}",
+            okHttpLogging:"com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
+
+    ]
+
+    remoteTestDependencies = [
+
+    ]
+
+    mobileUiDependencies = [
+
+    ]
+
+    mobileUiTestDependencies = [
+
+    ]
+
+}
