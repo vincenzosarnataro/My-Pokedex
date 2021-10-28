@@ -1,6 +1,7 @@
 package it.sarnataro.dbdatasource.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import it.sarnataro.dbdatasource.AppDatabase
 import it.sarnataro.dbdatasource.dao.PokemonDao
@@ -12,10 +13,10 @@ val dbDataSourceModule = module {
 }
 
 fun createAppDatabase(
-    application: Application
+    context: Context
 ): AppDatabase {
     return Room
-        .databaseBuilder(application, AppDatabase::class.java, "MyPokedex.db")
+        .databaseBuilder(context, AppDatabase::class.java, "MyPokedex.db")
         .fallbackToDestructiveMigration()
         .build()
 }

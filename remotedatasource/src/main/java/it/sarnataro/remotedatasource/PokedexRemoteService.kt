@@ -29,8 +29,8 @@ interface PokedexRemoteService {
   suspend fun fetchPokemonList(
     @Query("limit") limit: Int = 20,
     @Query("offset") offset: Int = 0
-  ): PokemonResponse
+  ): PokemonResponse?
 
-  @GET("pokemon/{name}")
-  suspend fun fetchPokemonInfo(@Path("name") name: String):PokemonDetail
+  @GET("pokemon/{id}")
+  suspend fun fetchPokemonInfo(@Path("id") id: Int):PokemonDetail?
 }

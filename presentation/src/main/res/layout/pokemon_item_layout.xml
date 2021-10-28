@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/pokemonCard"
+    app:cardBackgroundColor="@color/background800"
+    android:layout_margin="5dp"
+    android:layout_height="150dp"
+    app:cardElevation="0dp"
+    android:transitionName="shared_element_container"
+    app:cardCornerRadius="25dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/container"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="100dp"
+            android:layout_marginEnd="-10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/pokeball"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pokemonName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bulbasaur" />
+
+        <ImageView
+            android:id="@+id/pokemonImage"
+            tools:src="@drawable/pokemon_test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

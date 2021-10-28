@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -30,7 +31,7 @@ dependencies {
 
     implementation cacheDependencies.coroutines
     implementation cacheDependencies.room
-    implementation remoteDependencies.koin
-    implementation remoteDependencies.koinAndroid
-    annotationProcessor cacheDependencies.roomCompiler
+    implementation cacheDependencies.koin
+    implementation cacheDependencies.koinAndroid
+    kapt cacheDependencies.roomCompiler
 }
