@@ -43,6 +43,7 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
     implementation'com.github.florent37:glidepalette:2.1.2'
     implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.0.5'
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies

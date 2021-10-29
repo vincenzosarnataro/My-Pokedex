@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
@@ -31,10 +32,13 @@ class MainActivity : BaseActivity() {
     private val adapterList = PokemonAdapter(::onClickCard)
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
         // Keep system bars (status bar, navigation bar) persistent throughout the transition.
         window.sharedElementsUseOverlay = false
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
