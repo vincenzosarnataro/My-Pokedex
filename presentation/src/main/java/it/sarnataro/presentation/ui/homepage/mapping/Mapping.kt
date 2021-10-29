@@ -7,7 +7,7 @@ fun PokemonEntity.toUiPokemon() = UiPokemon(
     id = id,
     name = name.replaceFirstChar { it.uppercaseChar() },
     urlImage = getImageUrl(),
-    stats = stats.map { UiPokemon.UiStat(it.name, it.value) },
+    stats = stats.map { UiPokemon.UiStat(it.name.uppercase(), it.value) },
     images = images,
     types = types,
 )

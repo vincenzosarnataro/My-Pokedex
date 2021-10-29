@@ -1,6 +1,5 @@
 package it.sarnataro.presentation.ui.pokemondetail
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +7,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import androidx.core.content.ContextCompat
-import androidx.palette.graphics.Palette
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.platform.MaterialArcMotion
 import com.google.android.material.transition.platform.MaterialContainerTransform
@@ -30,6 +23,8 @@ import it.sarnataro.presentation.ui.BaseActivity
 import it.sarnataro.presentation.ui.homepage.uimodel.UiPokemon
 import it.sarnataro.presentation.ui.pokemondetail.adapter.StatAdapter
 import it.sarnataro.presentation.ui.pokemondetail.uimodel.UiDetailModel
+import it.sarnataro.presentation.ui.util.setImageWithColorBackground
+import it.sarnataro.presentation.ui.util.setUrlImage
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.koin.android.ext.android.inject
@@ -40,21 +35,61 @@ class PokemonDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-        findViewById<View>(android.R.id.content).transitionName = "shared_element_container"
-
-        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-
-        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
-            addTarget(android.R.id.content)
-            pathMotion = MaterialArcMotion()
-        }
-        window.sharedElementReturnTransition = MaterialContainerTransform().apply {
-            addTarget(android.R.id.content)
-            duration = 250L
-        }
+        setUpAnimationTransition()
         super.onCreate(savedInstanceState)
         binding = ActivityPokemonDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpErrorView()
+        setUpCarousel()
+
+        observeStates()
+        setUpAdapter()
+        getPokemonDetail()
+
+    }
+
+    private fun observeStates() {
+        onStates(viewModel) { state ->
+            when (state) {
+                is UiDetailModel -> {
+                    showDetail()
+                    binding.setUpPokemonDetail(state)
+                }
+                is UIState.Loading -> showLoading()
+                is UIState.Failed -> showError()
+            }
+        }
+    }
+
+    private fun ActivityPokemonDetailBinding.setUpPokemonDetail(
+        state: UiDetailModel
+    ) {
+        val list = mutableListOf<CarouselItem>()
+        setPokemonImages(list, state)
+
+        carousel.setData(list)
+
+
+
+        pokemonName.text = state.uiPokemon.name
+        pokemonId.text = state.uiPokemon.getFormatId()
+        setTypes(state.uiPokemon.types)
+        listStats.adapter = StatAdapter(state.uiPokemon.stats)
+    }
+
+    private fun setPokemonImages(
+        list: MutableList<CarouselItem>,
+        state: UiDetailModel
+    ) {
+        list.add(
+            CarouselItem(
+                imageUrl = state.uiPokemon.urlImage
+            )
+        )
+        list.addAll(state.uiPokemon.images.map { CarouselItem(it) })
+    }
+
+    private fun setUpCarousel() {
         binding.carousel.registerLifecycle(lifecycle)
 
         binding.carousel.carouselListener = object : CarouselListener {
@@ -70,78 +105,42 @@ class PokemonDetailActivity : BaseActivity() {
                 // Cast the binding to the returned view binding class of the onCreateViewHolder() method.
                 val currentBinding = binding as CustomItemCarouselBinding
 
-                Glide.with(binding.root.context).asBitmap()
-                    .load(item.imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .listener(object : RequestListener<Bitmap> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Bitmap>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Bitmap?,
-                            model: Any?,
-                            target: Target<Bitmap>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            resource ?: return false
-                            if (position != 0) return false
-                            val p: Palette = Palette.from(resource).generate()
-                            p.dominantSwatch?.rgb?.let { color ->
-                                this@PokemonDetailActivity.binding.header.setBackgroundColor(color)
-
-                            }
-                            return false
-                        }
-
-                    })
-                    .into(currentBinding.pokemonImage)
+                if (position == 0)
+                    currentBinding.pokemonImage.setImageWithColorBackground(
+                        item.imageUrl,
+                        this@PokemonDetailActivity.binding.header
+                    )
+                else
+                    currentBinding.pokemonImage.setUrlImage(item.imageUrl)
 
 
             }
         }
+    }
 
-        onStates(viewModel) { state ->
-            when (state) {
-                is UiDetailModel -> {
-                    binding.apply {
-                        val list = mutableListOf<CarouselItem>()
-                        list.add(
-                            CarouselItem(
-                                imageUrl = state.uiPokemon.urlImage
-                            )
-                        )
-                        list.addAll(state.uiPokemon.images.map { CarouselItem(it) })
+    private fun setUpErrorView() {
+        binding.error.tryButton.setOnClickListener { getPokemonDetail() }
+    }
 
-                        carousel.setData(list)
+    private fun setUpAnimationTransition() {
+        findViewById<View>(android.R.id.content).transitionName = "shared_element_container"
 
+        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
-
-                        pokemonName.text = state.uiPokemon.name
-                        pokemonId.text = state.uiPokemon.getFormatId()
-                        setTypes(state.uiPokemon.types)
-                        binding.listStats.adapter = StatAdapter(state.uiPokemon.stats)
-
-                    }
-
-                }
-                is UIState.Loading -> {
-                }
-                is UIState.Failed -> {
-                }
-            }
+        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
+            addTarget(android.R.id.content)
+            pathMotion = MaterialArcMotion()
         }
-        setUpAdapter()
+        window.sharedElementReturnTransition = MaterialContainerTransform().apply {
+            addTarget(android.R.id.content)
+            duration = 250L
+        }
+    }
+
+    private fun getPokemonDetail() {
         intent.getIntExtra("id", -1).let {
             viewModel.getPokemonInfo(it)
         }
-
     }
 
     private fun setUpAdapter() {
@@ -171,5 +170,21 @@ class PokemonDetailActivity : BaseActivity() {
             binding.typeGroup.addView(chip)
 
         }
+    }
+
+
+    private fun showError() {
+        binding.loading.isVisible = false
+        binding.error.root.isVisible = true
+    }
+
+    private fun showLoading() {
+        binding.loading.isVisible = true
+        binding.error.root.isVisible = false
+    }
+
+    private fun showDetail() {
+        binding.loading.isVisible = false
+        binding.error.root.isVisible = false
     }
 }

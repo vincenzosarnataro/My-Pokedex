@@ -33,17 +33,19 @@ class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-
-        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-
-        // Keep system bars (status bar, navigation bar) persistent throughout the transition.
-        window.sharedElementsUseOverlay = false
-
+        setUpAnimationTransition()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpErrorView()
+        observeStates()
+        setUpAdapter()
+        viewModel.loadPokemonList()
 
-        binding.error.tryButton.setOnClickListener { retry() }
+
+    }
+
+    private fun observeStates() {
         onStates(viewModel) { state ->
             when (state) {
                 is UiHomeModel -> {
@@ -57,11 +59,16 @@ class MainActivity : BaseActivity() {
                 is UIState.Failed -> showError()
             }
         }
+    }
 
-        setUpAdapter()
-        viewModel.loadPokemonList()
+    private fun setUpErrorView() {
+        binding.error.tryButton.setOnClickListener { retry() }
+    }
 
+    private fun setUpAnimationTransition() {
+        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
+        window.sharedElementsUseOverlay = false
     }
 
     private fun onClickCard(id:Int){

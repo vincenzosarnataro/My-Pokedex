@@ -21,6 +21,7 @@ import it.sarnataro.presentation.R
 import it.sarnataro.presentation.databinding.PokemonItemLayoutBinding
 import it.sarnataro.presentation.ui.homepage.uimodel.UiPokemon
 import it.sarnataro.presentation.ui.pokemondetail.PokemonDetailActivity
+import it.sarnataro.presentation.ui.util.setImageWithColorBackground
 
 
 class PokemonAdapter(val onClick: (Int) -> Unit) :
@@ -79,37 +80,8 @@ class PokemonViewHolder(private val binding: PokemonItemLayoutBinding) :
                 )
             )
 
-            Glide.with(binding.root.context).asBitmap()
-                .load(pokemon?.urlImage)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(object : RequestListener<Bitmap> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Bitmap>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
+            pokemonImage.setImageWithColorBackground(pokemon?.urlImage,pokemonCard)
 
-                    override fun onResourceReady(
-                        resource: Bitmap?,
-                        model: Any?,
-                        target: Target<Bitmap>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        resource ?: return false
-                        val p: Palette = Palette.from(resource).generate()
-                        p.dominantSwatch?.rgb?.let { color ->
-                            pokemonCard.setCardBackgroundColor(color)
-
-                        }
-                        return false
-                    }
-
-                })
-                .into(pokemonImage)
 
             pokemonName.text = pokemon?.name.orEmpty()
 
