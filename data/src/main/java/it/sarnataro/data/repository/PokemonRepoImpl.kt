@@ -18,6 +18,7 @@ class PokemonRepoImpl(
 
     @WorkerThread
     override suspend fun getPokemonList(offset: Int): Flow<List<PokemonEntity>> = flow {
+
         val list = pokemonDao.getPokemonList(offset)
         if (list.isEmpty()) {
             val listPokemonEntity =

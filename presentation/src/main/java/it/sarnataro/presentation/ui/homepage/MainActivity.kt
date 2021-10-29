@@ -1,8 +1,10 @@
 package it.sarnataro.presentation.ui.homepage
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -71,12 +73,12 @@ class MainActivity : BaseActivity() {
         window.sharedElementsUseOverlay = false
     }
 
-    private fun onClickCard(id:Int){
+    private fun onClickCard(id:Int?,view:View){
         val intent = Intent(this, PokemonDetailActivity::class.java)
-        intent.putExtra("id",id)
+        intent.putExtra("id", id)
         val options = ActivityOptions.makeSceneTransitionAnimation(
-            this,
-            this.findViewById<ViewGroup>(android.R.id.content),
+           this,
+            view,
             "shared_element_container" // The transition name to be matched in Activity B.
         )
         startActivity(intent, options.toBundle())

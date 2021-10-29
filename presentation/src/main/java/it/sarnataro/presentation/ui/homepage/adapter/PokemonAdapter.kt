@@ -3,20 +3,13 @@ package it.sarnataro.presentation.ui.homepage.adapter
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.graphics.Bitmap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
-import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import it.sarnataro.presentation.R
 import it.sarnataro.presentation.databinding.PokemonItemLayoutBinding
 import it.sarnataro.presentation.ui.homepage.uimodel.UiPokemon
@@ -24,7 +17,7 @@ import it.sarnataro.presentation.ui.pokemondetail.PokemonDetailActivity
 import it.sarnataro.presentation.ui.util.setImageWithColorBackground
 
 
-class PokemonAdapter(val onClick: (Int) -> Unit) :
+class PokemonAdapter(private val onClick: (Int?, View) -> Unit) :
     PagingDataAdapter<UiPokemon, PokemonViewHolder>(
         PokemonDiffCallback()
     ) {
@@ -36,7 +29,7 @@ class PokemonAdapter(val onClick: (Int) -> Unit) :
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val data = getItem(position)
 
-        holder.bind(data,onClick)
+        holder.bind(data, onClick)
 
     }
 
@@ -60,19 +53,11 @@ class PokemonAdapter(val onClick: (Int) -> Unit) :
 class PokemonViewHolder(private val binding: PokemonItemLayoutBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(pokemon: UiPokemon?,onClick: (Int) -> Unit) {
+    fun bind(pokemon: UiPokemon?, onClick: (Int?,View) -> Unit) {
 
         binding.apply {
-            pokemonCard.setOnClickListener {
-                val intent = Intent(root.context, PokemonDetailActivity::class.java)
-                intent.putExtra("id", pokemon?.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    root.context as Activity,
-                    pokemonCard,
-                    "shared_element_container" // The transition name to be matched in Activity B.
-                )
-                root.context.startActivity(intent, options.toBundle())
-            }
+            pokemonCard.setOnClickListener { onClick.invoke(pokemon?.id,pokemonCard)}
+
             pokemonCard.setCardBackgroundColor(
                 ContextCompat.getColor(
                     root.context,
@@ -80,7 +65,7 @@ class PokemonViewHolder(private val binding: PokemonItemLayoutBinding) :
                 )
             )
 
-            pokemonImage.setImageWithColorBackground(pokemon?.urlImage,pokemonCard)
+            pokemonImage.setImageWithColorBackground(pokemon?.urlImage, pokemonCard)
 
 
             pokemonName.text = pokemon?.name.orEmpty()
