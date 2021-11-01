@@ -21,6 +21,8 @@ android {
         versionName "1.0"
         minSdk rootProject.ext.androidMinSdkVersion
         targetSdk rootProject.ext.androidTargetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -51,7 +53,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":data")
 
-   
+
 
 
 }

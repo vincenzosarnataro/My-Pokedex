@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import it.sarnataro.remotedatasource.di.mockRemoteDataSourceModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.mockwebserver.MockWebServer
 import org.amshove.kluent.*
 import org.junit.After

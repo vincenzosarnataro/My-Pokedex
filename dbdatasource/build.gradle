@@ -6,6 +6,14 @@ plugins {
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    defaultConfig {
+        minSdk rootProject.ext.androidMinSdkVersion
+        targetSdk rootProject.ext.androidTargetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+
 
 
 
@@ -23,8 +31,8 @@ android {
         jvmTarget = '1.8'
     }
 }
-
 dependencies {
+
 
     def cacheDependencies = rootProject.ext.cacheDependencies
     def cacheTestDependencies = rootProject.ext.cacheTestDependencies
@@ -34,4 +42,18 @@ dependencies {
     implementation cacheDependencies.koin
     implementation cacheDependencies.koinAndroid
     kapt cacheDependencies.roomCompiler
+
+    testImplementation cacheTestDependencies.androidTesting
+    testImplementation cacheTestDependencies.kluent
+
+    // Testing
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.1.0", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+
+
+
 }

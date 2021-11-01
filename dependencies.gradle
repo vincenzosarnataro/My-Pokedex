@@ -93,7 +93,8 @@ ext {
     ]
 
     cacheTestDependencies = [
-
+            androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
+            kluent        : "org.amshove.kluent:kluent:$kluentVersion"
     ]
 
     remoteDependencies = [
@@ -114,7 +115,7 @@ ext {
             koinTestJunit : "io.insert-koin:koin-test-junit4:$koinVersion",
             mockWebService: "com.squareup.okhttp3:mockwebserver:$mockWebServiceVersion",
             androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
-            kluent        : " org.amshove.kluent:kluent:$kluentVersion"
+            kluent        : "org.amshove.kluent:kluent:$kluentVersion"
 
     ]
 
