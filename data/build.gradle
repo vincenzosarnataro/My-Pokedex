@@ -36,4 +36,14 @@ dependencies {
     implementation project(":remotedatasource")
     implementation project(":dbdatasource")
 
+
+    //test
+    testImplementation dataTestDependencies.koinTest
+    testImplementation dataTestDependencies.koinTestJunit
+    testImplementation dataTestDependencies.androidTesting
+    testImplementation dataTestDependencies.kluent
+    testImplementation dataTestDependencies.mockito
+    testImplementation dataTestDependencies.mockitoKtx
+
+
 }

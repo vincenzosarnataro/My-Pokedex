@@ -31,6 +31,10 @@ ext {
     mockWebServiceVersion = "4.9.2"
     androidTestingVersion = "2.1.0"
     kluentVersion = "1.14"
+    jUnitVersion = "4.13.2"
+    coreTestingVersion = "2.1.0"
+    espressoVersion = "3.4.0"
+    jUnitExtVersion = "1.1.3"
 
 
     appDependencies = [
@@ -81,6 +85,12 @@ ext {
     ]
 
     dataTestDependencies = [
+            koinTest      : "io.insert-koin:koin-test:$koinVersion",
+            koinTestJunit : "io.insert-koin:koin-test-junit4:$koinVersion",
+            androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
+            kluent        : "org.amshove.kluent:kluent:$kluentVersion",
+            mockito       : "org.mockito:mockito-core:$mockitoVersion",
+            mockitoKtx: "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
 
     ]
 
@@ -93,8 +103,10 @@ ext {
     ]
 
     cacheTestDependencies = [
-            androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
-            kluent        : "org.amshove.kluent:kluent:$kluentVersion"
+            jUnit      : "junit:junit:$jUnitVersion",
+            coreTesting: "androidx.arch.core:core-testing:$coreTestingVersion",
+            espresso   : "androidx.test.espresso:espresso-core:$espressoVersion",
+            jUnitExt   : "androidx.test.ext:junit:$jUnitExtVersion"
     ]
 
     remoteDependencies = [
