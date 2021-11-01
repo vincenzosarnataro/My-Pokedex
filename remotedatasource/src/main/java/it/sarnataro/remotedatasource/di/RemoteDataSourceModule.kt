@@ -3,6 +3,7 @@ package it.sarnataro.remotedatasource.di
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import it.sarnataro.remotedatasource.PokedexRemoteService
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -33,7 +34,7 @@ fun createOkHttpClient(): OkHttpClient {
 
 inline fun <reified T> createWebService(okHttpClient: OkHttpClient,moshi: Moshi ,url: String): T {
     val retrofit = Retrofit.Builder()
-        .baseUrl(url)
+        .baseUrl(url.toHttpUrl())
         .client(okHttpClient)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()

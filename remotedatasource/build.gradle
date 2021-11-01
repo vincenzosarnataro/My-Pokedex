@@ -37,5 +37,15 @@ dependencies {
     implementation remoteDependencies.coroutines
     implementation remoteDependencies.okHttpLogging
 
+    //test
+    testImplementation remoteTestDependencies.koinTest
+    testImplementation remoteTestDependencies.koinTestJunit
+    testImplementation remoteTestDependencies.mockWebService
+    testImplementation remoteTestDependencies.androidTesting
+    testImplementation remoteTestDependencies.kluent
+
+
+
+
 
 }
