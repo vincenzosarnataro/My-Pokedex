@@ -31,4 +31,12 @@ dependencies {
     implementation domainDependencies.coroutines
     implementation domainDependencies.koin
     implementation domainDependencies.koinAndroid
+
+    //test
+    testImplementation domainTestDependencies.koinTest
+    testImplementation domainTestDependencies.koinTestJunit
+    testImplementation domainTestDependencies.androidTesting
+    testImplementation domainTestDependencies.kluent
+    testImplementation domainTestDependencies.mockito
+    testImplementation domainTestDependencies.mockitoKtx
 }
