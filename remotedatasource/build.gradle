@@ -5,6 +5,12 @@ plugins {
 
 android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    defaultConfig {
+        minSdk rootProject.ext.androidMinSdkVersion
+        targetSdk rootProject.ext.androidTargetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
 
 
 

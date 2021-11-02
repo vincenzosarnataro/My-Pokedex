@@ -42,7 +42,7 @@ class PokedexRemoteServiceTest : KoinTest {
       val response =  service.fetchPokemonList(20, 0)
 
         response `should not be`  null
-        response?.results?.size `should be` 20
+        response?.results?.size shouldEqual  20
 
        val  request = mockWebServer.takeRequestWithTimeout()
         request?.requestUrl `should not be` null
