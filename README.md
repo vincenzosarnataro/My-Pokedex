@@ -26,6 +26,11 @@ My Pokedex is a demo app based on Clean Architecture (Repository pattern) and MV
 - [x] Android 12 splash screen support
 - [x] New Android Jetpack Paging
 
+## Testing
+- For launch all Unit Tests use <code>gradlew testDebugUnitTest</code>
+- For launch all Instrumental Tests use <code>gradlew connectedAndroidTest</code>
+
+
 ## Architecture
 There are 3 layer in this app. App module import all layer just for resolve the DI in Application Class
 | Presentation Layer      | Domain Layer          | Data Layer                         |
