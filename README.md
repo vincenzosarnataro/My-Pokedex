@@ -4,7 +4,7 @@
 My Pokedex is a demo app based on Clean Architecture (Repository pattern) and MVI pattern with Uniflow
 </p>
 </br>
-
+<img src="https://user-images.githubusercontent.com/39265806/139960514-b41bb2d6-7cc0-4ca5-967f-1f9496545a7d.gif" align="right" width="32%"/>
 ## Open-source libraries
 
 1. [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous. 
@@ -20,7 +20,8 @@ My Pokedex is a demo app based on Clean Architecture (Repository pattern) and MV
 ## Nice features
 
 - [x] Offile
-- [x] Unite test
+- [x] Dark Mode support
+- [x] Unit test
 - [x] Android 12 splash screen support
 - [x] New Android Jetpack Paging
 
@@ -44,3 +45,8 @@ There are 3 layer in this app. App module import all layer just for resolve the 
 ## Design
 
 - Design is ispired from [Pokedex App design](https://dribbble.com/shots/6540871-Pokedex-App)
+
+## MAD Score
+![summary](https://user-images.githubusercontent.com/39265806/139960117-777f968f-965f-4ce5-b2bb-9c3c40fccf4d.png)
+![kotlin](https://user-images.githubusercontent.com/39265806/139960127-9174aa40-6247-453c-b54c-2e8cea4b0de3.png)
+![jetpack](https://user-images.githubusercontent.com/39265806/139960134-fd4570e2-b7c6-46cd-9e12-24c7afc8afc4.png)
