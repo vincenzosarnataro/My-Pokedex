@@ -5,6 +5,7 @@ My Pokedex is a demo app based on Clean Architecture (Repository pattern) and MV
 </p>
 </br>
 <img src="https://user-images.githubusercontent.com/39265806/139960514-b41bb2d6-7cc0-4ca5-967f-1f9496545a7d.gif" align="right" width="32%"/>
+
 ## Open-source libraries
 
 1. [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous. 
