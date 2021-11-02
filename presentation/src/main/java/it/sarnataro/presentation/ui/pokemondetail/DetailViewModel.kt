@@ -7,7 +7,9 @@ import io.uniflow.core.flow.data.UIState
 import it.sarnataro.domain.usecase.GetPokemonDetail
 import it.sarnataro.presentation.ui.homepage.mapping.toUiPokemon
 import it.sarnataro.presentation.ui.pokemondetail.uimodel.UiDetailModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class DetailViewModel(private val getPokemonDetail: GetPokemonDetail) : AndroidDataFlow() {
 
@@ -20,22 +22,27 @@ class DetailViewModel(private val getPokemonDetail: GetPokemonDetail) : AndroidD
 
     fun getPokemonInfo(id: Int) {
         viewModelScope.launch {
-            setState(UIState.Loading)
+            try {
+                setState(UIState.Loading)
 
-            val flow = getPokemonDetail(id)
+                val flow = getPokemonDetail(id)
 
-            onFlow(
-                flow = { flow },
-                doAction = { value ->
+                onFlow(
+                    flow = { flow },
+                    doAction = { value ->
 
                     if (value != null)
                         setState(UiDetailModel(uiPokemon = value.toUiPokemon()))
                     else
                         setState(UIState.Failed())
 
-                },
-                onError = { _, _ -> setState(UIState.Failed()) }
-            )
+                    },
+                    onError = { _, _ -> setState(UIState.Failed()) }
+                )
+            }catch (e:Exception){
+                setState(UIState.Failed())
+            }
+
         }
     }
 }

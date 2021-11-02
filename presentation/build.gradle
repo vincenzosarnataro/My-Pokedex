@@ -57,4 +57,17 @@ dependencies {
 
     implementation project(":domain")
 
+
+
+    //test
+    testImplementation presentationTestDependencies.koinTest
+    testImplementation presentationTestDependencies.koinTestJunit
+    testImplementation presentationTestDependencies.androidTesting
+    testImplementation presentationTestDependencies.kluent
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.mockitoKtx
+    testImplementation presentationTestDependencies.uniflowCoreTest
+    testImplementation presentationTestDependencies.uniflowAndroidTest
+
+
 }

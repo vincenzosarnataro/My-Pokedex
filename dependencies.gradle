@@ -56,7 +56,7 @@ ext {
             androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
             kluent        : "org.amshove.kluent:kluent:$kluentVersion",
             mockito       : "org.mockito:mockito-core:$mockitoVersion",
-            mockitoKtx: "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
+            mockitoKtx    : "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
     ]
 
     presentationDependencies = [
@@ -80,6 +80,14 @@ ext {
     ]
 
     presentationTestDependencies = [
+            koinTest          : "io.insert-koin:koin-test:$koinVersion",
+            koinTestJunit     : "io.insert-koin:koin-test-junit4:$koinVersion",
+            androidTesting    : "androidx.arch.core:core-testing:$androidTestingVersion",
+            kluent            : "org.amshove.kluent:kluent:$kluentVersion",
+            mockito           : "org.mockito:mockito-core:$mockitoVersion",
+            mockitoKtx        : "org.mockito.kotlin:mockito-kotlin:$mockitoVersion",
+            uniflowCoreTest   : "org.uniflow-kt:uniflow-test:$uniflowVersion",
+            uniflowAndroidTest: "org.uniflow-kt:uniflow-android-test:$uniflowVersion"
 
     ]
 
@@ -95,7 +103,7 @@ ext {
             androidTesting: "androidx.arch.core:core-testing:$androidTestingVersion",
             kluent        : "org.amshove.kluent:kluent:$kluentVersion",
             mockito       : "org.mockito:mockito-core:$mockitoVersion",
-            mockitoKtx: "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
+            mockitoKtx    : "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
 
     ]
 
@@ -136,12 +144,5 @@ ext {
 
     ]
 
-    mobileUiDependencies = [
-
-    ]
-
-    mobileUiTestDependencies = [
-
-    ]
 
 }
