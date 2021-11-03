@@ -20,7 +20,7 @@ My Pokedex is a demo app based on Clean Architecture (Repository pattern) and MV
 
 ## Nice features
 
-- [x] Offile
+- [x] Offline
 - [x] Dark Mode support
 - [x] Unit test
 - [x] Android 12 splash screen support
