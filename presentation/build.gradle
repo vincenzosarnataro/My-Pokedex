@@ -1,73 +1,68 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+
 }
 
 android {
     buildFeatures {
         viewBinding  true
     }
-    compileSdkVersion rootProject.ext.androidCompileSdkVersion
-
+    namespace = "it.sarnataro.presentation"
+    compileSdk = libs.versions.compileSdk.get().toInteger()
     defaultConfig {
-        minSdk rootProject.ext.androidMinSdkVersion
-        targetSdk rootProject.ext.androidTargetSdkVersion
+        minSdk libs.versions.minSdk.get().toInteger()
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
 }
 
 dependencies {
 
 
 
-    def presentationDependencies = rootProject.ext.presentationDependencies
-    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
 
-    implementation presentationDependencies.coroutines
-    implementation presentationDependencies.koin
-    implementation presentationDependencies.koinAndroid
-    implementation presentationDependencies.uniflow
-    implementation presentationDependencies.uniflowAndroid
-    implementation presentationDependencies.androidCore
-    implementation presentationDependencies.appcompat
-    implementation presentationDependencies.material
-    implementation presentationDependencies.constraintLayout
-    implementation presentationDependencies.paging
-    implementation presentationDependencies.glide
-    kapt presentationDependencies.glideCompiler
-    implementation presentationDependencies.glidePalette
-    implementation presentationDependencies.carousel
-    implementation presentationDependencies.splashScreen
+    implementation(libs.coroutines.android)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.uniflow.core)
+    implementation(libs.uniflow.android)
+    implementation(libs.android.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraint.layout)
+    implementation(libs.paging.runtime.ktx)
+    implementation(libs.glide)
+    implementation(libs.glide.palette)
+    implementation(libs.image.carousel)
+    implementation(libs.core.splashscreen)
+
 
     implementation project(":domain")
 
 
 
     //test
-    testImplementation presentationTestDependencies.koinTest
-    testImplementation presentationTestDependencies.koinTestJunit
-    testImplementation presentationTestDependencies.androidTesting
-    testImplementation presentationTestDependencies.kluent
-    testImplementation presentationTestDependencies.mockito
-    testImplementation presentationTestDependencies.mockitoKtx
-    testImplementation presentationTestDependencies.uniflowCoreTest
-    testImplementation presentationTestDependencies.uniflowAndroidTest
-
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.kluent)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.uniflow.test)
+    testImplementation(libs.uniflow.android.test)
 
 }

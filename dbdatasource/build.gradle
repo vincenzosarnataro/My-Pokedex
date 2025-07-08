@@ -1,55 +1,49 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    namespace="it.sarnataro.dbdatasource"
+    compileSdk = libs.versions.compileSdk.get().toInteger()
     defaultConfig {
-        minSdk rootProject.ext.androidMinSdkVersion
-        targetSdk rootProject.ext.androidTargetSdkVersion
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk libs.versions.minSdk.get().toInteger()
 
     }
-
-
-
-
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
 }
 dependencies {
 
 
-    def cacheDependencies = rootProject.ext.cacheDependencies
-    def cacheTestDependencies = rootProject.ext.cacheTestDependencies
 
-    implementation cacheDependencies.coroutines
-    implementation cacheDependencies.room
-    implementation cacheDependencies.koin
-    implementation cacheDependencies.koinAndroid
-    kapt cacheDependencies.roomCompiler
+
+    implementation(libs.coroutines.android)
+    implementation(libs.room.ktx)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    ksp(libs.room.compiler)
 
 
 
     // Testing
-    testImplementation cacheTestDependencies.jUnit
-    androidTestImplementation cacheTestDependencies.coreTesting
-    androidTestImplementation cacheTestDependencies.espresso
-    androidTestImplementation cacheTestDependencies.jUnitExt
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.core.testing)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.junit.ext)
 
 
 

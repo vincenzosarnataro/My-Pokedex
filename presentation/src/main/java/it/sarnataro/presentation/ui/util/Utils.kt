@@ -20,17 +20,17 @@ import com.bumptech.glide.request.target.Target
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any?,
-                    target: Target<Bitmap>?,
+                    target: Target<Bitmap?>,
                     isFirstResource: Boolean
                 ): Boolean {
                     return false
                 }
 
                 override fun onResourceReady(
-                    resource: Bitmap?,
-                    model: Any?,
-                    target: Target<Bitmap>?,
-                    dataSource: DataSource?,
+                    resource: Bitmap,
+                    model: Any,
+                    target: Target<Bitmap?>?,
+                    dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
                     resource ?: return false
@@ -45,6 +45,7 @@ import com.bumptech.glide.request.target.Target
                     }
                     return false
                 }
+
 
             })
             .into(this)

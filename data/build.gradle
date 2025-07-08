@@ -1,42 +1,40 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
-    compileSdkVersion rootProject.ext.androidCompileSdkVersion
 
+    compileSdk = libs.versions.compileSdk.get().toInteger()
     defaultConfig {
-        minSdk rootProject.ext.androidMinSdkVersion
-        targetSdk rootProject.ext.androidTargetSdkVersion
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk libs.versions.minSdk.get().toInteger()
 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
 
-
+namespace = "it.sarnataro.data"
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
 }
 
 dependencies {
-    def dataDependencies = rootProject.ext.dataDependencies
-    def dataTestDependencies = rootProject.ext.dataTestDependencies
 
 
-    implementation dataDependencies.coroutines
-    implementation dataDependencies.koin
-    implementation dataDependencies.koinAndroid
+    implementation(libs.coroutines.android)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
 
     implementation project(":domain")
     implementation project(":remotedatasource")
@@ -44,12 +42,13 @@ dependencies {
 
 
     //test
-    testImplementation dataTestDependencies.koinTest
-    testImplementation dataTestDependencies.koinTestJunit
-    testImplementation dataTestDependencies.androidTesting
-    testImplementation dataTestDependencies.kluent
-    testImplementation dataTestDependencies.mockito
-    testImplementation dataTestDependencies.mockitoKtx
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.kluent)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
 
 
 }
